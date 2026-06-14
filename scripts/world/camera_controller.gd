@@ -74,38 +74,38 @@ func _follow_player(delta: float) -> void:
 		return
 
 	# Get player position
-	var player_pos := player.global_position
+	var player_pos: Vector2 = player.global_position
 
 	# Spring-damped smooth follow with lerp
-	var lerp_weight := min(1.0, delta * FOLLOW_LERP_FACTOR)
-	var target_pos := Vector2(
+	var lerp_weight: float = min(1.0, delta * FOLLOW_LERP_FACTOR)
+	var target_pos: Vector2 = Vector2(
 		global_position.x + (player_pos.x - global_position.x) * lerp_weight,
 		global_position.y + (player_pos.y - global_position.y) * lerp_weight
 	)
 
 	# Clamp to world boundaries
-	var clamped_pos := _clamp_to_boundaries(target_pos)
+	var clamped_pos: Vector2 = _clamp_to_boundaries(target_pos)
 
 	# Apply position
 	global_position = clamped_pos
 
 func _clamp_to_boundaries(pos: Vector2) -> Vector2:
 	# Get viewport size
-	var viewport_size := get_viewport_rect().size
+	var viewport_size: Vector2 = get_viewport_rect().size
 
 	# Calculate camera bounds based on zoom
-	var half_view_width := (viewport_size.x * 0.5) / current_zoom
-	var half_view_height := (viewport_size.y * 0.5) / current_zoom
+	var half_view_width: float = (viewport_size.x * 0.5) / current_zoom
+	var half_view_height: float = (viewport_size.y * 0.5) / current_zoom
 
 	# Clamp position to keep camera within world boundaries
-	var clamped_x := clampf(pos.x, half_view_width, WORLD_WIDTH - half_view_width)
-	var clamped_y := clampf(pos.y, half_view_height, WORLD_HEIGHT - half_view_height)
+	var clamped_x: float = clampf(pos.x, half_view_width, WORLD_WIDTH - half_view_width)
+	var clamped_y: float = clampf(pos.y, half_view_height, WORLD_HEIGHT - half_view_height)
 
 	return Vector2(clamped_x, clamped_y)
 
 func _update_zoom(delta: float) -> void:
 	# Interpolate current zoom toward target zoom
-	var lerp_weight := min(1.0, delta * ZOOM_LERP_FACTOR)
+	var lerp_weight: float = min(1.0, delta * ZOOM_LERP_FACTOR)
 	current_zoom = current_zoom + (target_zoom - current_zoom) * lerp_weight
 
 	# Apply zoom to camera
@@ -124,7 +124,7 @@ func toggle_zoom() -> void:
 	else:
 		target_zoom = DEFAULT_ZOOM
 
-func set_zoom(zoom_level: float) -> void:
+func set_camera_zoom(zoom_level: float) -> void:
 	"""Set a specific zoom level"""
 	target_zoom = clampf(zoom_level, 0.1, 2.0)  # Reasonable zoom range
 
