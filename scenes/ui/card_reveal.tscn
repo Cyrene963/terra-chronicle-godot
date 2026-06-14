@@ -1,0 +1,287 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8jy4v2k5pqmr"]
+
+[ext_resource type="Texture2D" uid="uid://cblxnvu8jxfkp" path="res://assets/concept/card_template.png" id="1_card_template"]
+
+[sub_resource type="GDScript" id="GDScript_card_reveal"]
+script/source = "extends Control
+
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var card_container: SubViewportContainer = $CenterContainer/SubViewportContainer
+@onready var card_face: TextureRect = $CenterContainer/SubViewportContainer/CardFace
+@onready var card_name_label: Label = $CenterContainer/SubViewportContainer/CardFace/CardName
+@onready var atk_label: Label = $CenterContainer/SubViewportContainer/CardFace/Stats/ATK
+@onready var def_label: Label = $CenterContainer/SubViewportContainer/CardFace/Stats/DEF
+@onready var element_label: Label = $CenterContainer/SubViewportContainer/CardFace/Element
+@onready var hint_label: Label = $HintLabel
+
+var card_data: Dictionary = {}
+
+func _ready() -> void:
+	# Start with card rotated 180 degrees (back facing)
+	card_container.material.set_shader_parameter(\"rotation_y\", PI)
+	card_container.material.set_shader_parameter(\"scale_factor\", 0.78)
+	card_container.material.set_shader_parameter(\"translate_y\", 30.0)
+
+	# Play flip animation
+	animation_player.play(\"card_flip\")
+
+func set_card_data(data: Dictionary) -> void:
+	card_data = data
+	if card_name_label:
+		card_name_label.text = data.get(\"name\", \"Unknown Card\")
+	if atk_label:
+		atk_label.text = \"ATK: %d\" % data.get(\"atk\", 0)
+	if def_label:
+		def_label.text = \"DEF: %d\" % data.get(\"def\", 0)
+	if element_label:
+		element_label.text = data.get(\"element\", \"无\")
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed:
+		# Close and add card to deck
+		queue_free()
+"
+
+[sub_resource type="Shader" id="Shader_card_3d"]
+code = "shader_type canvas_item;
+
+uniform float rotation_y = 0.0;
+uniform float scale_factor = 1.0;
+uniform float translate_y = 0.0;
+
+void fragment() {
+	// Apply 3D perspective transform
+	vec2 uv = UV - 0.5;
+
+	// Y rotation
+	float cos_y = cos(rotation_y);
+	float sin_y = sin(rotation_y);
+
+	// Apply rotation
+	float x = uv.x * cos_y;
+	float z = uv.x * sin_y;
+
+	// Perspective projection
+	float perspective = 1.0 / (1.0 + z * 0.5);
+	vec2 transformed_uv = vec2(x * perspective, uv.y) * scale_factor;
+
+	// Apply Y translation
+	transformed_uv.y += translate_y / 500.0;
+
+	transformed_uv += 0.5;
+
+	// Sample texture
+	if (transformed_uv.x < 0.0 || transformed_uv.x > 1.0 || transformed_uv.y < 0.0 || transformed_uv.y > 1.0) {
+		COLOR = vec4(0.0);
+	} else {
+		COLOR = texture(TEXTURE, transformed_uv);
+
+		// Add drop shadow effect
+		float shadow = smoothstep(0.0, 0.02, abs(z)) * 0.3;
+		COLOR.rgb = mix(COLOR.rgb, vec3(0.0), shadow);
+	}
+
+	// Backface culling (show black when rotated past 90 degrees)
+	if (cos_y < 0.0) {
+		COLOR = vec4(0.1, 0.15, 0.2, COLOR.a);
+	}
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_card"]
+shader = SubResource("Shader_card_3d")
+shader_parameter/rotation_y = 3.14159
+shader_parameter/scale_factor = 0.78
+shader_parameter/translate_y = 30.0
+
+[sub_resource type="Animation" id="Animation_card_flip"]
+resource_name = "card_flip"
+length = 1.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer/SubViewportContainer:material:shader_parameter/rotation_y")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0, 1.05),
+"transitions": PackedFloat32Array(0.2, 1.0),
+"update": 0,
+"values": [3.14159, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CenterContainer/SubViewportContainer:material:shader_parameter/scale_factor")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0, 1.05),
+"transitions": PackedFloat32Array(0.85, 1.0),
+"update": 0,
+"values": [0.78, 1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CenterContainer/SubViewportContainer:material:shader_parameter/translate_y")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0, 1.05),
+"transitions": PackedFloat32Array(0.25, 1.0),
+"update": 0,
+"values": [30.0, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HintLabel:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.0, 0.7, 1.05),
+"transitions": PackedFloat32Array(1.0, 1.0, 1.0),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[node name="CardReveal" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = SubResource("GDScript_card_reveal")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewportContainer" type="Control" parent="CenterContainer"]
+material = SubResource("ShaderMaterial_card")
+layout_mode = 2
+custom_minimum_size = Vector2(300, 420)
+
+[node name="CardFace" type="TextureRect" parent="CenterContainer/SubViewportContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_card_template")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CardName" type="Label" parent="CenterContainer/SubViewportContainer/CardFace"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 20.0
+offset_bottom = 60.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.95, 0.9, 0.85, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 24
+text = "Unknown Card"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Element" type="Label" parent="CenterContainer/SubViewportContainer/CardFace"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_top = 70.0
+offset_bottom = 100.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(1, 0.85, 0.4, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 20
+text = "无"
+horizontal_alignment = 1
+
+[node name="Stats" type="HBoxContainer" parent="CenterContainer/SubViewportContainer/CardFace"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -50.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="ATK" type="Label" parent="CenterContainer/SubViewportContainer/CardFace/Stats"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.4, 0.4, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 20
+text = "ATK: 0"
+
+[node name="Spacer" type="Control" parent="CenterContainer/SubViewportContainer/CardFace/Stats"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+
+[node name="DEF" type="Label" parent="CenterContainer/SubViewportContainer/CardFace/Stats"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.6, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 20
+text = "DEF: 0"
+
+[node name="HintLabel" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -80.0
+offset_right = 150.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 18
+text = "点击任意处收入卡组"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("Animation_card_flip")
+}
+
+[connection signal="gui_input" from="." to="." method="_input"]
