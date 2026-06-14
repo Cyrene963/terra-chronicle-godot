@@ -12,10 +12,13 @@ config_version=5
 
 config/name="Terra Chronicle · 大地编年史"
 config/description="A fusion of farming, beast taming, card crafting, and continental politics."
-run/main_scene="res://scenes/world/world.tscn"
+run/main_scene="res://scenes/ui/simple_title.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 boot_splash/bg_color=Color(0.0392157, 0.0392157, 0.0549, 1)
-boot_splash/show_image=false
+boot_splash/show_image=true
+boot_splash/image="res://boot_splash.svg"
+boot_splash/fullsize=false
+boot_splash/use_filter=true
 config/icon="res://icon.svg"
 
 [autoload]
