@@ -1,0 +1,30 @@
+# Godot assets
+.import/
+.godot/
+*.import
+*.translation
+
+# Build artifacts
+export/
+export_presets.cfg
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Backup files
+*~
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Logs
+logs/
+*.log
