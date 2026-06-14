@@ -1,0 +1,298 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8vxm3q9h2r4p"]
+
+[ext_resource type="Script" path="res://scripts/ui/beast_breeding_panel.gd" id="1_beast_breeding"]
+
+[node name="BeastBreedingPanel" type="Panel"]
+offset_right = 400.0
+offset_bottom = 600.0
+script = ExtResource("1_beast_breeding")
+
+[node name="Background" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="TitleContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/TitleContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.35, 0.25, 0.15, 1)
+theme_override_font_sizes/font_size = 28
+text = "灵兽培育"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CloseButton" type="Button" parent="MarginContainer/VBoxContainer/TitleContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "×"
+
+[node name="HSeparator1" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+theme_override_styles/separator = SubResource("StyleBoxLine_separator")
+
+[node name="PortraitContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PortraitPanel" type="Panel" parent="MarginContainer/VBoxContainer/PortraitContainer"]
+custom_minimum_size = Vector2(160, 160)
+layout_mode = 2
+
+[node name="Portrait" type="TextureRect" parent="MarginContainer/VBoxContainer/PortraitContainer/PortraitPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BeastName" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.2, 0.1, 1)
+theme_override_font_sizes/font_size = 24
+text = "青云狼"
+horizontal_alignment = 1
+
+[node name="BeastLevel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.3, 0.2, 1)
+theme_override_font_sizes/font_size = 18
+text = "等级: 一阶"
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="StatsContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="StatsTitle" type="Label" parent="MarginContainer/VBoxContainer/StatsContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.25, 0.15, 1)
+theme_override_font_sizes/font_size = 20
+text = "属性"
+horizontal_alignment = 1
+
+[node name="AttackStat" type="HBoxContainer" parent="MarginContainer/VBoxContainer/StatsContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/StatsContainer/AttackStat"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.4, 0.3, 0.2, 1)
+theme_override_font_sizes/font_size = 16
+text = "攻击:"
+
+[node name="Value" type="Label" parent="MarginContainer/VBoxContainer/StatsContainer/AttackStat"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.4, 0.2, 1)
+theme_override_font_sizes/font_size = 16
+text = "120"
+horizontal_alignment = 2
+
+[node name="DefenseStat" type="HBoxContainer" parent="MarginContainer/VBoxContainer/StatsContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/StatsContainer/DefenseStat"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.4, 0.3, 0.2, 1)
+theme_override_font_sizes/font_size = 16
+text = "防御:"
+
+[node name="Value" type="Label" parent="MarginContainer/VBoxContainer/StatsContainer/DefenseStat"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.4, 0.2, 1)
+theme_override_font_sizes/font_size = 16
+text = "80"
+horizontal_alignment = 2
+
+[node name="SpeedStat" type="HBoxContainer" parent="MarginContainer/VBoxContainer/StatsContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/StatsContainer/SpeedStat"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.4, 0.3, 0.2, 1)
+theme_override_font_sizes/font_size = 16
+text = "速度:"
+
+[node name="Value" type="Label" parent="MarginContainer/VBoxContainer/StatsContainer/SpeedStat"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.4, 0.2, 1)
+theme_override_font_sizes/font_size = 16
+text = "95"
+horizontal_alignment = 2
+
+[node name="HSeparator3" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="EvolutionSection" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="EvolutionTitle" type="Label" parent="MarginContainer/VBoxContainer/EvolutionSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.25, 0.15, 1)
+theme_override_font_sizes/font_size = 20
+text = "进化"
+horizontal_alignment = 1
+
+[node name="CurrentSouls" type="HBoxContainer" parent="MarginContainer/VBoxContainer/EvolutionSection"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/EvolutionSection/CurrentSouls"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.3, 0.2, 1)
+theme_override_font_sizes/font_size = 16
+text = "当前魂魄:"
+
+[node name="Value" type="Label" parent="MarginContainer/VBoxContainer/EvolutionSection/CurrentSouls"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.35, 0.15, 1)
+theme_override_font_sizes/font_size = 16
+text = "15"
+
+[node name="EvolutionLevels" type="VBoxContainer" parent="MarginContainer/VBoxContainer/EvolutionSection"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Level1" type="HBoxContainer" parent="MarginContainer/VBoxContainer/EvolutionSection/EvolutionLevels"]
+layout_mode = 2
+
+[node name="LevelLabel" type="Label" parent="MarginContainer/VBoxContainer/EvolutionSection/EvolutionLevels/Level1"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.3, 0.2, 1)
+theme_override_font_sizes/font_size = 15
+text = "一阶"
+
+[node name="Cost" type="Label" parent="MarginContainer/VBoxContainer/EvolutionSection/EvolutionLevels/Level1"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.45, 0.32, 0.18, 1)
+theme_override_font_sizes/font_size = 15
+text = "10 魂魄"
+
+[node name="Status" type="Label" parent="MarginContainer/VBoxContainer/EvolutionSection/EvolutionLevels/Level1"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 0.6, 0.2, 1)
+theme_override_font_sizes/font_size = 15
+text = "✓"
+
+[node name="Level2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/EvolutionSection/EvolutionLevels"]
+layout_mode = 2
+
+[node name="LevelLabel" type="Label" parent="MarginContainer/VBoxContainer/EvolutionSection/EvolutionLevels/Level2"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.3, 0.2, 1)
+theme_override_font_sizes/font_size = 15
+text = "二阶"
+
+[node name="Cost" type="Label" parent="MarginContainer/VBoxContainer/EvolutionSection/EvolutionLevels/Level2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.45, 0.32, 0.18, 1)
+theme_override_font_sizes/font_size = 15
+text = "25 魂魄"
+
+[node name="Status" type="Label" parent="MarginContainer/VBoxContainer/EvolutionSection/EvolutionLevels/Level2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 15
+text = "○"
+
+[node name="Level3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/EvolutionSection/EvolutionLevels"]
+layout_mode = 2
+
+[node name="LevelLabel" type="Label" parent="MarginContainer/VBoxContainer/EvolutionSection/EvolutionLevels/Level3"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.3, 0.2, 1)
+theme_override_font_sizes/font_size = 15
+text = "三阶"
+
+[node name="Cost" type="Label" parent="MarginContainer/VBoxContainer/EvolutionSection/EvolutionLevels/Level3"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.45, 0.32, 0.18, 1)
+theme_override_font_sizes/font_size = 15
+text = "50 魂魄"
+
+[node name="Status" type="Label" parent="MarginContainer/VBoxContainer/EvolutionSection/EvolutionLevels/Level3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 15
+text = "○"
+
+[node name="Level4" type="HBoxContainer" parent="MarginContainer/VBoxContainer/EvolutionSection/EvolutionLevels"]
+layout_mode = 2
+
+[node name="LevelLabel" type="Label" parent="MarginContainer/VBoxContainer/EvolutionSection/EvolutionLevels/Level4"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.3, 0.2, 1)
+theme_override_font_sizes/font_size = 15
+text = "四阶"
+
+[node name="Cost" type="Label" parent="MarginContainer/VBoxContainer/EvolutionSection/EvolutionLevels/Level4"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.45, 0.32, 0.18, 1)
+theme_override_font_sizes/font_size = 15
+text = "100 魂魄"
+
+[node name="Status" type="Label" parent="MarginContainer/VBoxContainer/EvolutionSection/EvolutionLevels/Level4"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 15
+text = "○"
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="EvolveButton" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.85, 0.75, 1)
+theme_override_colors/font_hover_color = Color(1, 0.95, 0.85, 1)
+theme_override_font_sizes/font_size = 20
+text = "进化到二阶 (25 魂魄)"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/TitleContainer/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/EvolveButton" to="." method="_on_evolve_button_pressed"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_separator"]
+color = Color(0.4, 0.3, 0.2, 0.3)
+thickness = 2
