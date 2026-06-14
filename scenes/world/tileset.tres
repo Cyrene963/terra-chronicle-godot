@@ -1,0 +1,78 @@
+[gd_resource type="TileSet" load_steps=10 format=3 uid="uid://c7xqv8jy8qm2h"]
+
+[ext_resource type="Texture2D" uid="uid://dpjrwh4xwdkdu" path="res://assets/tiles/tile_grass.png" id="1_grass"]
+[ext_resource type="Texture2D" uid="uid://cnfm3j5hj4bxe" path="res://assets/tiles/tile_soil.png" id="2_soil"]
+[ext_resource type="Texture2D" uid="uid://daj3k8wy5ij7w" path="res://assets/tiles/tile_water.png" id="3_water"]
+[ext_resource type="Texture2D" uid="uid://dc2hbph0i7e3m" path="res://assets/tiles/tile_sand.png" id="4_sand"]
+[ext_resource type="Texture2D" uid="uid://bjlgxdp0kgr3d" path="res://assets/tiles/tile_plot.png" id="5_plot"]
+[ext_resource type="Texture2D" uid="uid://c8knygu5b3aw7" path="res://assets/tiles/water_diag_tl.png" id="6_water_tl"]
+[ext_resource type="Texture2D" uid="uid://crv6jn6bjxnkw" path="res://assets/tiles/water_diag_tr.png" id="7_water_tr"]
+[ext_resource type="Texture2D" uid="uid://djufn0uwpftki" path="res://assets/tiles/water_diag_bl.png" id="8_water_bl"]
+[ext_resource type="Texture2D" uid="uid://bucrx0xt2bkxo" path="res://assets/tiles/water_diag_br.png" id="9_water_br"]
+
+[resource]
+tile_size = Vector2i(64, 64)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_grass"]
+resource_name = "grass"
+texture = ExtResource("1_grass")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_soil"]
+resource_name = "soil"
+texture = ExtResource("2_soil")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_water"]
+resource_name = "water"
+texture = ExtResource("3_water")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sand"]
+resource_name = "sand"
+texture = ExtResource("4_sand")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_plot"]
+resource_name = "plot"
+texture = ExtResource("5_plot")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_water_tl"]
+resource_name = "water_diag_tl"
+texture = ExtResource("6_water_tl")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_water_tr"]
+resource_name = "water_diag_tr"
+texture = ExtResource("7_water_tr")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_water_bl"]
+resource_name = "water_diag_bl"
+texture = ExtResource("8_water_bl")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_water_br"]
+resource_name = "water_diag_br"
+texture = ExtResource("9_water_br")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+sources/0 = SubResource("TileSetAtlasSource_grass")
+sources/1 = SubResource("TileSetAtlasSource_soil")
+sources/2 = SubResource("TileSetAtlasSource_water")
+sources/3 = SubResource("TileSetAtlasSource_sand")
+sources/4 = SubResource("TileSetAtlasSource_plot")
+sources/5 = SubResource("TileSetAtlasSource_water_tl")
+sources/6 = SubResource("TileSetAtlasSource_water_tr")
+sources/7 = SubResource("TileSetAtlasSource_water_bl")
+sources/8 = SubResource("TileSetAtlasSource_water_br")

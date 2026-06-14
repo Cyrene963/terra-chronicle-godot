@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://bxw5n4jqm8yvp"]
+
+[ext_resource type="Script" path="res://scripts/world/map_generator.gd" id="1_map_gen"]
+[ext_resource type="PackedScene" uid="uid://world_tilemap" path="res://scenes/world/tile_map.tscn" id="2_tilemap"]
+[ext_resource type="PackedScene" uid="uid://world_player" path="res://scenes/world/player.tscn" id="3_player"]
+[ext_resource type="Script" path="res://scripts/world/camera_controller.gd" id="4_camera"]
+[ext_resource type="Script" path="res://scripts/world/world.gd" id="5_world"]
+
+[node name="World" type="Node2D"]
+script = ExtResource("5_world")
+
+[node name="TileMap" parent="." instance=ExtResource("2_tilemap")]
+
+[node name="YSort" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Player" parent="YSort" instance=ExtResource("3_player")]
+position = Vector2(1280, 1536)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(1280, 1536)
+zoom = Vector2(0.62, 0.62)
+script = ExtResource("4_camera")
+
+[node name="MapGenerator" type="Node" parent="."]
+script = ExtResource("1_map_gen")
