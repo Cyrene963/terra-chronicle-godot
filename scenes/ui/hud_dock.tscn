@@ -1,0 +1,185 @@
+[gd_scene load_steps=5 format=3 uid="uid://c5y8k3m7n4qp2"]
+
+[ext_resource type="Script" path="res://scripts/ui/hud_dock.gd" id="1"]
+[ext_resource type="Theme" uid="uid://dqv3xw8y5r6tn" path="res://resources/themes/main_theme.tres" id="2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dock_bg"]
+bg_color = Color(0.918, 0.863, 0.725, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.6, 0.2, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.3)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_normal"]
+bg_color = Color(0.85, 0.7, 0.3, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.7, 0.5, 0.2, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="HUDDock" type="Control"]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -280.0
+offset_top = -80.0
+offset_right = 280.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1")
+
+[node name="Background" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dock_bg")
+
+[node name="BackdropBlur" type="ColorRect" parent="Background"]
+modulate = Color(1, 1, 1, 0.1)
+layout_mode = 2
+color = Color(1, 1, 1, 0.05)
+
+[node name="MarginContainer" type="MarginContainer" parent="Background"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="InventorySection" type="HBoxContainer" parent="Background/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="WheatCounter" type="HBoxContainer" parent="Background/MarginContainer/HBoxContainer/InventorySection"]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="WheatIcon" type="Label" parent="Background/MarginContainer/HBoxContainer/InventorySection/WheatCounter"]
+layout_mode = 2
+theme = ExtResource("2")
+theme_override_colors/font_color = Color(0.9, 0.75, 0.2, 1)
+theme_override_font_sizes/font_size = 18
+text = "🌾"
+
+[node name="WheatLabel" type="Label" parent="Background/MarginContainer/HBoxContainer/InventorySection/WheatCounter"]
+layout_mode = 2
+theme = ExtResource("2")
+theme_override_colors/font_color = Color(0.3, 0.25, 0.15, 1)
+theme_override_font_sizes/font_size = 16
+text = "星麦"
+
+[node name="WheatCount" type="Label" parent="Background/MarginContainer/HBoxContainer/InventorySection/WheatCounter"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2")
+theme_override_colors/font_color = Color(0.2, 0.15, 0.1, 1)
+theme_override_font_sizes/font_size = 16
+text = "0"
+
+[node name="Separator1" type="Label" parent="Background/MarginContainer/HBoxContainer/InventorySection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.5, 0.3, 1)
+theme_override_font_sizes/font_size = 16
+text = "|"
+
+[node name="WoodCounter" type="HBoxContainer" parent="Background/MarginContainer/HBoxContainer/InventorySection"]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="WoodIcon" type="Label" parent="Background/MarginContainer/HBoxContainer/InventorySection/WoodCounter"]
+layout_mode = 2
+theme = ExtResource("2")
+theme_override_colors/font_color = Color(0.6, 0.4, 0.2, 1)
+theme_override_font_sizes/font_size = 18
+text = "🪵"
+
+[node name="WoodLabel" type="Label" parent="Background/MarginContainer/HBoxContainer/InventorySection/WoodCounter"]
+layout_mode = 2
+theme = ExtResource("2")
+theme_override_colors/font_color = Color(0.3, 0.25, 0.15, 1)
+theme_override_font_sizes/font_size = 16
+text = "木材"
+
+[node name="WoodCount" type="Label" parent="Background/MarginContainer/HBoxContainer/InventorySection/WoodCounter"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2")
+theme_override_colors/font_color = Color(0.2, 0.15, 0.1, 1)
+theme_override_font_sizes/font_size = 16
+text = "0"
+
+[node name="Separator2" type="Label" parent="Background/MarginContainer/HBoxContainer/InventorySection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.5, 0.3, 1)
+theme_override_font_sizes/font_size = 16
+text = "|"
+
+[node name="CardsCounter" type="HBoxContainer" parent="Background/MarginContainer/HBoxContainer/InventorySection"]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="CardsIcon" type="Label" parent="Background/MarginContainer/HBoxContainer/InventorySection/CardsCounter"]
+layout_mode = 2
+theme = ExtResource("2")
+theme_override_colors/font_color = Color(0.7, 0.3, 0.8, 1)
+theme_override_font_sizes/font_size = 18
+text = "🃏"
+
+[node name="CardsLabel" type="Label" parent="Background/MarginContainer/HBoxContainer/InventorySection/CardsCounter"]
+layout_mode = 2
+theme = ExtResource("2")
+theme_override_colors/font_color = Color(0.3, 0.25, 0.15, 1)
+theme_override_font_sizes/font_size = 16
+text = "卡牌"
+
+[node name="CardsCount" type="Label" parent="Background/MarginContainer/HBoxContainer/InventorySection/CardsCounter"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2")
+theme_override_colors/font_color = Color(0.2, 0.15, 0.1, 1)
+theme_override_font_sizes/font_size = 16
+text = "0"
+
+[node name="AlchemyButton" type="Button" parent="Background/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 36)
+layout_mode = 2
+theme = ExtResource("2")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 0.8, 1)
+theme_override_colors/font_disabled_color = Color(0.6, 0.5, 0.4, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_button_normal")
+text = "炼金 · 炼制卡牌"
+disabled = true
+
+[connection signal="pressed" from="Background/MarginContainer/HBoxContainer/AlchemyButton" to="." method="_on_alchemy_button_pressed"]

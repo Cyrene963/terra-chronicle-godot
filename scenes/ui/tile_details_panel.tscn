@@ -1,0 +1,325 @@
+[gd_scene load_steps=6 format=3 uid="uid://tile_details_panel"]
+
+[ext_resource type="Script" path="res://scripts/ui/tile_details_panel.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel_bg"]
+bg_color = Color(0.957, 0.925, 0.847, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.545, 0.451, 0.333, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.3)
+shadow_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button"]
+bg_color = Color(0.957, 0.925, 0.847, 0.5)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.831, 0.686, 0.216, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.15)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar_bg"]
+bg_color = Color(0.835, 0.788, 0.706, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.545, 0.451, 0.333, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar_fill"]
+bg_color = Color(0.831, 0.686, 0.216, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="TileDetailsPanel" type="Panel"]
+visible = false
+custom_minimum_size = Vector2(320, 0)
+anchors_preset = 0
+offset_right = 320.0
+offset_bottom = 280.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel_bg")
+script = ExtResource("1_script")
+
+[node name="CornerTL" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 52.0
+offset_bottom = 14.0
+color = Color(0.831, 0.686, 0.216, 1)
+
+[node name="CornerTL2" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 14.0
+offset_bottom = 52.0
+color = Color(0.831, 0.686, 0.216, 1)
+
+[node name="CornerTR" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 268.0
+offset_top = 12.0
+offset_right = 308.0
+offset_bottom = 14.0
+color = Color(0.831, 0.686, 0.216, 1)
+
+[node name="CornerTR2" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 306.0
+offset_top = 12.0
+offset_right = 308.0
+offset_bottom = 52.0
+color = Color(0.831, 0.686, 0.216, 1)
+
+[node name="CornerBL" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 266.0
+offset_right = 52.0
+offset_bottom = 268.0
+color = Color(0.831, 0.686, 0.216, 1)
+
+[node name="CornerBL2" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 228.0
+offset_right = 14.0
+offset_bottom = 268.0
+color = Color(0.831, 0.686, 0.216, 1)
+
+[node name="CornerBR" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 268.0
+offset_top = 266.0
+offset_right = 308.0
+offset_bottom = 268.0
+color = Color(0.831, 0.686, 0.216, 1)
+
+[node name="CornerBR2" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 306.0
+offset_top = 228.0
+offset_right = 308.0
+offset_bottom = 268.0
+color = Color(0.831, 0.686, 0.216, 1)
+
+[node name="CloseButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 280.0
+offset_top = 16.0
+offset_right = 304.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(0.545, 0.451, 0.333, 1)
+theme_override_colors/font_hover_color = Color(0.831, 0.686, 0.216, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button")
+text = "×"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.831, 0.686, 0.216, 1)
+theme_override_font_sizes/font_size = 24
+text = "地块详情"
+horizontal_alignment = 1
+
+[node name="StatsContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="FertilityRow" type="VBoxContainer" parent="MarginContainer/VBoxContainer/StatsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="HBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer/StatsContainer/FertilityRow"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/StatsContainer/FertilityRow/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.545, 0.451, 0.333, 1)
+theme_override_font_sizes/font_size = 16
+text = "肥力"
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/StatsContainer/FertilityRow/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ValueLabel" type="Label" parent="MarginContainer/VBoxContainer/StatsContainer/FertilityRow/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.831, 0.686, 0.216, 1)
+theme_override_font_sizes/font_size = 18
+text = "0"
+horizontal_alignment = 2
+
+[node name="BarBackground" type="Panel" parent="MarginContainer/VBoxContainer/StatsContainer/FertilityRow"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bar_bg")
+
+[node name="BarFill" type="Panel" parent="MarginContainer/VBoxContainer/StatsContainer/FertilityRow/BarBackground"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -272.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bar_fill")
+
+[node name="MoistureRow" type="VBoxContainer" parent="MarginContainer/VBoxContainer/StatsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="HBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer/StatsContainer/MoistureRow"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/StatsContainer/MoistureRow/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.545, 0.451, 0.333, 1)
+theme_override_font_sizes/font_size = 16
+text = "湿度"
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/StatsContainer/MoistureRow/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ValueLabel" type="Label" parent="MarginContainer/VBoxContainer/StatsContainer/MoistureRow/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.831, 0.686, 0.216, 1)
+theme_override_font_sizes/font_size = 18
+text = "0"
+horizontal_alignment = 2
+
+[node name="BarBackground" type="Panel" parent="MarginContainer/VBoxContainer/StatsContainer/MoistureRow"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bar_bg")
+
+[node name="BarFill" type="Panel" parent="MarginContainer/VBoxContainer/StatsContainer/MoistureRow/BarBackground"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -272.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bar_fill")
+
+[node name="PestRow" type="VBoxContainer" parent="MarginContainer/VBoxContainer/StatsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="HBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer/StatsContainer/PestRow"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/StatsContainer/PestRow/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.545, 0.451, 0.333, 1)
+theme_override_font_sizes/font_size = 16
+text = "虫害压力"
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/StatsContainer/PestRow/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ValueLabel" type="Label" parent="MarginContainer/VBoxContainer/StatsContainer/PestRow/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.831, 0.686, 0.216, 1)
+theme_override_font_sizes/font_size = 18
+text = "0"
+horizontal_alignment = 2
+
+[node name="BarBackground" type="Panel" parent="MarginContainer/VBoxContainer/StatsContainer/PestRow"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bar_bg")
+
+[node name="BarFill" type="Panel" parent="MarginContainer/VBoxContainer/StatsContainer/PestRow/BarBackground"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -272.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bar_fill")
+
+[node name="ManaRow" type="VBoxContainer" parent="MarginContainer/VBoxContainer/StatsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="HBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer/StatsContainer/ManaRow"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/StatsContainer/ManaRow/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.545, 0.451, 0.333, 1)
+theme_override_font_sizes/font_size = 16
+text = "灵脉充能"
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/StatsContainer/ManaRow/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ValueLabel" type="Label" parent="MarginContainer/VBoxContainer/StatsContainer/ManaRow/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.831, 0.686, 0.216, 1)
+theme_override_font_sizes/font_size = 18
+text = "0"
+horizontal_alignment = 2
+
+[node name="BarBackground" type="Panel" parent="MarginContainer/VBoxContainer/StatsContainer/ManaRow"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bar_bg")
+
+[node name="BarFill" type="Panel" parent="MarginContainer/VBoxContainer/StatsContainer/ManaRow/BarBackground"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -272.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bar_fill")
