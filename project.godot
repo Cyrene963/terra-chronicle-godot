@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Terra Chronicle · 大地编年史"
 config/description="A fusion of farming, beast taming, card crafting, and continental politics."
-run/main_scene="res://scenes/ui/simple_title.tscn"
+run/main_scene="res://scenes/ui/title_screen.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 boot_splash/bg_color=Color(0.0392157, 0.0392157, 0.0549, 1)
 boot_splash/show_image=true
