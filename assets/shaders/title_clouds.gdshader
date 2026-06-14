@@ -1,72 +1,62 @@
 shader_type canvas_item;
 
-uniform float time;
+// Terra Chronicle - Title Screen Cloud Effect
+// 26 radial gradient blobs drifting from left to right
 
-// Hash function for pseudo-random number generation
-float hash(float n) {
-    return fract(sin(n) * 43758.5453123);
-}
+uniform float time = 0.0;
 
-// Generate blob properties based on index
-vec4 get_blob_properties(int i) {
-    float fi = float(i);
-    float x = hash(fi * 1.234);
-    float y = hash(fi * 2.345);
-    float radius = hash(fi * 3.456) * 0.15 + 0.05; // 0.05 to 0.2
-    float velocity = hash(fi * 4.567) * 0.5 + 0.3; // 0.3 to 0.8
-    return vec4(x, y, radius, velocity);
-}
-
-// Calculate alpha fade based on lifetime progress
-float calculate_fade(float progress) {
-    if (progress < 0.3) {
-        // Fade in during first 30%
-        return progress / 0.3;
-    } else if (progress > 0.7) {
-        // Fade out during last 30%
-        return (1.0 - progress) / 0.3;
-    }
-    return 1.0;
+// Pseudo-random function
+float hash(vec2 p) {
+    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
 }
 
 void fragment() {
-    vec2 uv = UV;
-    vec3 base_color = vec3(250.0/255.0, 248.0/255.0, 242.0/255.0);
-    float total_alpha = 0.0;
+    vec2 uv = FRAGCOORD.xy / vec2(1920.0, 1080.0);
+    vec4 color = vec4(0.0, 0.0, 0.0, 0.0);
 
-    // Duration for one full cycle in seconds (2.4ms = 2.4 seconds assuming 2.4ms was meant as 2.4s)
-    float cycle_duration = 2.4;
-
-    // Render 26 blobs
+    // 26 cloud blobs
     for (int i = 0; i < 26; i++) {
-        vec4 props = get_blob_properties(i);
-        float start_x = props.x;
-        float start_y = props.y;
-        float radius = props.z;
-        float velocity = props.w;
+        float fi = float(i);
 
-        // Calculate current position with wrapping
-        float progress = mod(time * velocity / cycle_duration, 1.0);
-        float current_x = mod(start_x + progress, 1.0);
-        float current_y = start_y;
+        // Pseudo-random properties for each blob
+        float seed_x = hash(vec2(fi * 0.1, 0.0));
+        float seed_y = hash(vec2(fi * 0.1, 1.0));
+        float seed_r = hash(vec2(fi * 0.1, 2.0));
+        float seed_v = hash(vec2(fi * 0.1, 3.0));
 
-        // Distance from current blob center
-        vec2 blob_center = vec2(current_x, current_y);
-        float dist = distance(uv, blob_center);
+        // Blob properties
+        float radius = 0.05 + seed_r * 0.15;  // 0.05 to 0.2
+        float velocity = 0.3 + seed_v * 0.5;  // 0.3 to 0.8
+        float y_pos = 0.1 + seed_y * 0.8;     // 0.1 to 0.9
 
-        // Radial gradient: center opaque → edge transparent
-        float gradient = 1.0 - smoothstep(0.0, radius, dist);
+        // Horizontal movement with wrapping
+        float cycle_time = time * velocity * 0.4;  // 2.4s cycle at velocity 1.0
+        float x_pos = mod(seed_x + cycle_time, 1.0);
 
-        // Apply fade based on lifecycle
-        float fade = calculate_fade(progress);
+        // Alpha fade in/out (first 30%, last 30%)
+        float life = mod(cycle_time, 1.0);
+        float alpha = 1.0;
+        if (life < 0.3) {
+            alpha = life / 0.3;
+        } else if (life > 0.7) {
+            alpha = (1.0 - life) / 0.3;
+        }
 
-        // Accumulate alpha (additive blending)
-        total_alpha += gradient * fade * 0.95;
+        // Distance from blob center
+        vec2 blob_pos = vec2(x_pos, y_pos);
+        float dist = distance(uv, blob_pos);
+
+        // Radial gradient
+        float gradient = smoothstep(radius, 0.0, dist);
+
+        // Center color: rgba(250, 248, 242, 0.95)
+        vec3 blob_color = vec3(0.980, 0.973, 0.949);
+        float blob_alpha = gradient * 0.95 * alpha;
+
+        // Additive blending
+        color.rgb += blob_color * blob_alpha;
+        color.a = max(color.a, blob_alpha);
     }
 
-    // Clamp alpha to valid range
-    total_alpha = clamp(total_alpha, 0.0, 1.0);
-
-    // Output color with accumulated alpha
-    COLOR = vec4(base_color, total_alpha);
+    COLOR = color;
 }
